@@ -29,6 +29,9 @@ class LoginRequest(BaseModel):
 @app.post("/login")
 def login(request: LoginRequest):
     try:
+        # Imprimimos los valores (sin el password por seguridad) para ver qué está leyendo Railway
+        print(f"DEBUG: Conectando a {os.getenv('DB_HOST')} en el puerto {os.getenv('DB_PORT')}")
+        
         conn = mysql.connector.connect(**db_config)
         cursor = conn.cursor(dictionary=True)
         # Validación de usuario en tabla AUTORIZADOS
