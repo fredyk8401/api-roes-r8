@@ -44,7 +44,13 @@ def login(request: LoginRequest):
         else:
             raise HTTPException(status_code=401, detail="Credenciales incorrectas")
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        # Esto imprimirá el error real de MySQL en los logs de Railway
+        print(f"--- ERROR DE CONEXIÓN REAL ---")
+        print(f"Tipo de error: {type(e).__name__}")
+        print(f"Mensaje: {str(e)}")
+        print(f"-------------------------------")
+        raise HTTPException(status_code=500, detail="Error interno de conexión a la base de datos")
+        #raise HTTPException(status_code=500, detail=str(e))
     finally:
         if 'conn' in locals() and conn.is_connected():
             cursor.close()
