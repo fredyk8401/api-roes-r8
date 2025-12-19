@@ -35,7 +35,7 @@ def login(request: LoginRequest):
         conn = mysql.connector.connect(**db_config)
         cursor = conn.cursor(dictionary=True)
         # Validación de usuario en tabla AUTORIZADOS
-        query = "SELECT * FROM AUTORIZADOS WHERE autorizado_email = %s AND autorizado_password = %s"
+        query = "SELECT * FROM autorizados WHERE autorizado_email = %s AND autorizado_password = %s"
         cursor.execute(query, (request.email, request.password))
         user = cursor.fetchone()
         
